@@ -1,6 +1,3 @@
-# Author: Dalibor Hrg, 2015/2016 (v1.0)
-# License: CC BY 4.0
-
 import mraa
 from time import sleep
 import temp
@@ -8,6 +5,7 @@ import led
 import lcd
 import math
 import sys
+import uv
 from pyupm_grove import GroveLight, GroveButton
 
 # init LCD, LED, Light Sensor, Button and Touch Sensor
@@ -44,14 +42,14 @@ def pressed(args):
 while True:
     # read temperature and lux and print on LCD
     t = temp.read_temp()
-    string1= t + " C"
-    string2= str(lux.value()) + " lux" 
+    string1= t + " C" + ", " + str(lux.value()) + " lux"
+    string2= "UV: " + uv.read_uv(2)
     
     # if night/dark switch on LCD backlight
-    if (lux.value() < 2):
+    if (lux.value() < 10):
         lcd.write_lcd(string1,string2,255,255,255,0,1)
     else:  
-        lcd.write_lcd(string1,string2,20,20,20,0,1)
+        lcd.write_lcd(string1,string2,40,40,40,0,1)
 
     # insall isr on button and touch pin
     button.isr(mraa.EDGE_RISING, pressed, button)

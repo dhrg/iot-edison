@@ -11,7 +11,7 @@ def read_temp():
     a = ain.read()
     resistance = (1023-a)*10000.0/a
     temp = 1/(math.log(resistance/10000.0)/B+1/298.15)-273.15
-    temp = round(temp,2)
+    temp = round(temp,1)
     return str(temp)
 
 def main():
