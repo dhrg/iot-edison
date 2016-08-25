@@ -1,8 +1,9 @@
 import mraa
 import math
 
+index = 0
 def read_uv(pin):
-
+    global index
     sensorValue = mraa.Aio(2)
     Vsig = sensorValue.read()*4980/1023
 
